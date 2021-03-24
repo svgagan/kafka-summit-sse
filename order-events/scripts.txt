@@ -1,0 +1,22 @@
+$ bin/zookeeper-server-start.sh config/zookeeper.properties
+
+$ bin/kafka-server-start.sh config/server.properties
+
+$ bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic moms-pizza-orders
+
+$ bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+
+
+curl --location --request GET 'localhost:9090/v1/api/orders?storeId=STORE1' \
+--header 'Accept: text/event-stream' \
+--header 'Connection: keep-alive'
+
+
+curl --location --request GET 'localhost:9090/v1/api/orders?storeId=STORE2' \
+--header 'Accept: text/event-stream' \
+--header 'Connection: keep-alive'
+
+
+curl --location --request GET 'localhost:9090/v1/api/orders?storeId=STORE3' \
+--header 'Accept: text/event-stream' \
+--header 'Connection: keep-alive'
